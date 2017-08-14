@@ -9,27 +9,36 @@ void rightMenue() {
   }
 }
 
+void headerMenue() {
+  float menueheight = 100;
 
-public class Canvas {
-  public int Width = 500, Height = height;
-  void disp() {
-  }
+  noStroke();
+  fill(240, 240, 200);
+  rect(0, 0, width, menueheight);
 }
 
-public class RightMenue {
-  public int Width = 150, Height = height;
 
-  void disp() {
-    fill(200);
-    rect(width-Width, 0, this.Width, height);
-  }
+interface button{
+  void disp();
+  void execution();
+  boolean IsUnderCursor();
 }
 
-public class LeftMenue {
-  public int Width = 150, Height = height;
-
-  void disp() {
-    fill(200);
-    rect(0, 0, this.Width, height);
+public class ResetButton implements button{
+  int x,y;
+  public ResetButton(int X, int Y){   
+    x = X;
+    y = Y;
+  }
+ 
+  void disp(){
+  }
+  
+  void execution(){
+  }
+  
+  boolean IsUnderCursor(){
+    
+    return true;
   }
 }

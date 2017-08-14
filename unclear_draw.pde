@@ -1,15 +1,13 @@
 /*操作は一旦ボタン固定にして保存とかについては後で考える。
  ストロークを数式にするのは頑張って考える。*/
- 
- /*今
- リセットは出来た
+
+/*今
  エフェクトは消えた
- キャンバスはフルになった
- 点は線になった
+ 
  学び：pgに背景とかweightとかやるときはbegindrawしてから
  */
- 
- /*
+
+/*
  todo
  ノイズで何がしたいの私は？
  もっと色々いじって研究する
@@ -29,7 +27,7 @@ void setup() {
   surface.setResizable(true);
 
   Layers = new ArrayList();
-  for(int i = 0; i < 5; i++){
+  for (int i = 0; i < 5; i++) {
     Layers.add(new Layer(i));
   }
 }
@@ -41,14 +39,18 @@ void draw() {
     Layer l = (Layer)Layers.get(i);
     l.disp_layer();
   }
-  
+
   rightMenue();
-  
-  if(key == ' ') {
+  headerMenue();
+
+  if (key == ' ') {
     Layer l = (Layer)Layers.get(chosen);
     processLayer(l.layer);
   }
 }
+
+
+
 
 void makegoup() {
   Layers.add(new Layer(Layers.size()));
@@ -73,12 +75,12 @@ void keyPressed() {
 }
 
 void processLayer(PGraphics g) {
-    g.loadPixels();
-    for (int i = 0; i < g.pixels.length; i++) {
-      int s = (int)random(100)==0 ? (int)random(10):0;
-      g.pixels[i] = g.pixels[(i+s)%g.pixels.length];
-      s = (int)random(100)==0 ? (int)random(10):0;
-      g.pixels[i] = g.pixels[abs((i-s)%g.pixels.length)];
-    }
-    g.updatePixels();
+  g.loadPixels();
+  for (int i = 0; i < g.pixels.length; i++) {
+    int s = (int)random(100)==0 ? (int)random(10):0;
+    g.pixels[i] = g.pixels[(i+s)%g.pixels.length];
+    s = (int)random(100)==0 ? (int)random(10):0;
+    g.pixels[i] = g.pixels[abs((i-s)%g.pixels.length)];
   }
+  g.updatePixels();
+}
