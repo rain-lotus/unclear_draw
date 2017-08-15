@@ -17,13 +17,12 @@
 
 ArrayList Layers;
 int chosen = 0;//選択されているレイヤー
-
 boolean flag = false;
 
 void setup() {
   size(1000, 800);
   surface.setResizable(true);
-
+  
   Layers = new ArrayList();
   for (int i = 0; i < 5; i++) {
     Layers.add(new Layer());
@@ -32,24 +31,20 @@ void setup() {
 
 void draw() {
   background(200);
-
+  
+  //キャンバスの背景
   fill(255);
   noStroke();
   //最終的にレイヤーの位置と合わせる
   rect(width/4, height/4, width/2, height/2);
 
+  //レイヤー表示
   for (int i = 0; i < Layers.size(); i++) {
     Layer l = (Layer)Layers.get(i);
     l.disp_layer();
   }
-
   rightMenue();
   headerMenue();
-
-  if (key == ' ') {
-    Layer l = (Layer)Layers.get(chosen);
-    processLayer(l.layer);
-  }
 }
 
 void reset() {
@@ -65,22 +60,10 @@ void mouseDragged() {
   l.drawing();
 }
 
-char pastPressedKey = ' ';
 void keyPressed() {
   if (key == 'r') reset();
   for (int i = 0; i < Layers.size(); i++) {
     Layer l = (Layer)Layers.get(i);
     if(chosen == i)l.keyJudg();
   }
-}
-
-void processLayer(PGraphics g) {
-  g.loadPixels();
-  for (int i = 0; i < g.pixels.length; i++) {
-    int s = (int)random(100)==0 ? (int)random(10):0;
-    g.pixels[i] = g.pixels[(i+s)%g.pixels.length];
-    s = (int)random(100)==0 ? (int)random(10):0;
-    g.pixels[i] = g.pixels[abs((i-s)%g.pixels.length)];
-  }
-  g.updatePixels();
 }
