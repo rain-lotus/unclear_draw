@@ -19,7 +19,6 @@ ArrayList Layers;
 int chosen = 0;//選択されているレイヤー
 
 boolean flag = false;
-Holizontalrandom holi = new Holizontalrandom();
 
 void setup() {
   size(1000, 800);
@@ -69,6 +68,10 @@ void mouseDragged() {
 char pastPressedKey = ' ';
 void keyPressed() {
   if (key == 'r') reset();
+  for (int i = 0; i < Layers.size(); i++) {
+    Layer l = (Layer)Layers.get(i);
+    if(chosen == i)l.keyJudg();
+  }
 }
 
 void processLayer(PGraphics g) {

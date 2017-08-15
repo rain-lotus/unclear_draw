@@ -3,21 +3,21 @@ public static class LayerConst {
   public LayerConst() {
     LayerConst.number++;
   }
-  
 }
 
-class Layer {
+class Layer extends Effects {
   ArrayList blocks;
   int number = 0;
   int layerPosX = width/4, layerPosY = height/4; 
   float viewSizeX = 0, viewSizeY = 0; //サムネのサイズ
   float viewPosX = 0, viewPosY = 0;
-  PGraphics layer;
   boolean clicked = false;
   color c;
   LayerConst lc = new LayerConst();
-  
+
   Layer() {
+    super();
+    this.effectsInit();
     viewSizeX = 160;
     viewSizeY = height*(160.0/width);
     number = LayerConst.number;
@@ -27,6 +27,7 @@ class Layer {
 
   void disp_layer() {
     image(this.layer, layerPosX, layerPosY);
+    this.standby();
   }
 
   void setlayerPos(int x, int y) {

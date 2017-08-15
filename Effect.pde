@@ -1,74 +1,93 @@
-/*class Effects{
-  Effects(){
-    
+public class effectConst { 
+  char exeKey = ' ';
+  boolean isExecute = false;
+  effectConst() {
   }
-  
-}
-*/
-
-class Holizontalrandom  {
-  char triggerButton_ = 'a';
-  
-  
-  //ここが再帰で死んでます。
-  /*boolean isInOperation(){
-    if(isInOperation() == true) return false;
-    if(key != pastPressedKey) return false;
-    pastPressedKey = key;
-    return true;
-  }*/
-  
-  void processLayer(PGraphics g) {
-    g.loadPixels();
-    for (int i = 0; i < g.pixels.length; i++) {
-      int s = (int)random(100)==0 ? (int)random(10):0;
-      g.pixels[i] = g.pixels[(i+s)%g.pixels.length];
-      s = (int)random(100)==0 ? (int)random(10):0;
-      g.pixels[i] = g.pixels[abs((i-s)%g.pixels.length)];
+  boolean isPressed() {
+    //絶対不完全
+    if (key == exeKey) {
+      if (isExecute) return false;  
+      else return true;
     }
-    g.updatePixels();
+    return !isExecute;
   }
 }
-/*
-class Varticalrandom implements Effect {
-  char triggerButton = 's';
 
-  void processLayer(PGraphics g) {
-    g.loadPixels();
-    for (int i = 0; i < g.pixels.length; i++) {
-      int s = (int)random(100)==0 ? (int)random(10):0;
-      g.pixels[i] = g.pixels[(i+s*g.width)%g.pixels.length];
-      s = (int)random(100)==0 ? (int)random(10):0;
-      g.pixels[i] = g.pixels[abs((i+(-s)*g.width))%g.pixels.length];
+
+public class Effects {
+  Holizontalrandom hl;
+  Varticalrandom vl;
+  PGraphics layer;
+
+  Effects() {
+    effectsInit();
+    this.layer=createGraphics(int(width*0.5), int(height*0.5), JAVA2D);
+  }
+
+  void effectsInit() {
+    hl = new Holizontalrandom('a');
+    vl = new Varticalrandom('s');
+  }
+
+  void standby() {
+    if (hl.isExecute) hl.process(layer);
+    if (vl.isExecute) vl.process(layer);
+  }
+
+  void keyJudg() {
+    //keyPressedにレイヤー単位で突っ込むため
+    hl.isExecute = hl.isPressed();
+    vl.isExecute = vl.isPressed();
+  }
+
+  class Holizontalrandom extends effectConst {
+    Holizontalrandom(char k) {
+      exeKey = k;
     }
-    g.updatePixels();
-  }
-}
-
-class Holizontalnoise implements Effect {
-  char triggerButton = 'd';
-
-  void processLayer(PGraphics g) {
-    g.loadPixels();
-    for (int i = 0; i < g.pixels.length; i++) {
-      int s = (int)(noise(i)*5);
-      g.pixels[i] = g.pixels[(i+s)%g.pixels.length];
+    void process(PGraphics g) {
+      g.loadPixels();
+      for (int i = 0; i < g.pixels.length; i++) {
+        int s = (int)random(100)==0 ? (int)random(10):0;
+        g.pixels[i] = g.pixels[(i+s)%g.pixels.length];
+        s = (int)random(100)==0 ? (int)random(10):0;
+        g.pixels[i] = g.pixels[abs((i-s)%g.pixels.length)];
+      }
+      g.updatePixels();
     }
-    g.updatePixels();
   }
-}
 
-class Varticalnoise implements Effect {
-  char triggerButton = 'f';
-
-  void processLayer(PGraphics g) {
-    g.loadPixels();
-    for (int i = 0; i < g.pixels.length; i++) {
-      int s = (int)(noise(i)*5);
-      g.pixels[i] = g.pixels[(i+s+g.width)%g.pixels.length];
+  class Varticalrandom extends effectConst {
+    Varticalrandom(char k) {
+      exeKey = k;
     }
-    g.updatePixels();
+    void process(PGraphics g) {
+      g.loadPixels();
+      for (int i = 0; i < g.pixels.length; i++) {
+        int s = (int)random(100)==0 ? (int)random(10):0;
+        g.pixels[i] = g.pixels[(i+s*g.width)%g.pixels.length];
+        s = (int)random(100)==0 ? (int)random(10):0;
+        g.pixels[i] = g.pixels[abs((i+(-s)*g.width))%g.pixels.length];
+      }
+      g.updatePixels();
+    }
   }
-}
 
-*/
+  /*
+  void Holizontalnoise(PGraphics g) {
+   g.loadPixels();
+   for (int i = 0; i < g.pixels.length; i++) {
+   int s = (int)(noise(i)*5);
+   g.pixels[i] = g.pixels[(i+s)%g.pixels.length];
+   }
+   g.updatePixels();
+   }
+   
+   void Varticalnoise(PGraphics g) {
+   g.loadPixels();
+   for (int i = 0; i < g.pixels.length; i++) {
+   int s = (int)(noise(i)*5);
+   g.pixels[i] = g.pixels[(i+s+g.width)%g.pixels.length];
+   }
+   g.updatePixels();
+   }*/
+}
