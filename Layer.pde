@@ -1,21 +1,27 @@
+public static class LayerConst {
+  static int number = -1;
+  public LayerConst() {
+    LayerConst.number++;
+  }
+  
+}
+
 class Layer {
   ArrayList blocks;
-  public int number = -1;
-  public int layerPosX = 20, layerPosY = 20; 
-  public float sizex = 0, sizey = 0; //サムネのサイズ
-  public float posx = 0, posy = 0;
-  public PGraphics layer;
-  public boolean clicked = false;
+  int number = 0;
+  int layerPosX = width/4, layerPosY = height/4; 
+  float viewSizeX = 0, viewSizeY = 0; //サムネのサイズ
+  float viewPosX = 0, viewPosY = 0;
+  PGraphics layer;
+  boolean clicked = false;
   color c;
-
+  LayerConst lc = new LayerConst();
+  
   Layer() {
-  }
-
-  Layer(int n) {
-    sizex = 160;
-    sizey = height*(160.0/width);
-    number = n;//インデックスつけ？？
-    this.layer=createGraphics(width, height, JAVA2D);
+    viewSizeX = 160;
+    viewSizeY = height*(160.0/width);
+    number = LayerConst.number;
+    this.layer=createGraphics(int(width*0.5), int(height*0.5), JAVA2D);
     c = color((int)random(255), (int)random(255), (int)random(255));
   }
 
@@ -29,14 +35,15 @@ class Layer {
   }
 
   void disp_vew(float x, float y) {
-    posx = x;
-    posy = y;
+    viewPosX = x;
+    viewPosY = y;
     //サムネイル表示
     noFill();
-    if (chosen == this.number) stroke(c);
-    else stroke(200);
-    rect(posx, posy, sizex, sizey);
-    image(this.layer, posx, posy, sizex, sizey);
+    if (chosen == this.number) strokeWeight(5);
+    else strokeWeight(1);
+    stroke(c);
+    rect(viewPosX, viewPosY, viewSizeX, viewSizeY);
+    image(this.layer, viewPosX, viewPosY, viewSizeX, viewSizeY);
     this.mouse();
   }
 
@@ -52,10 +59,10 @@ class Layer {
 
   boolean isMouseOn() {
     //マウス判定
-    if (mouseY < posy) return false;
-    if (mouseY > posy + sizey) return false;
-    if (mouseX < posx) return false;
-    if (mouseX > posx + sizex) return false;
+    if (mouseY < viewPosY) return false;
+    if (mouseY > viewPosY + viewSizeY) return false;
+    if (mouseX < viewPosX) return false;
+    if (mouseX > viewPosX + viewSizeX) return false;
     return true;
   }
 

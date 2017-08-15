@@ -1,8 +1,12 @@
-interface Effect {
-  void processLayer(PGraphics g);
+/*class Effects{
+  Effects(){
+    
+  }
+  
 }
+*/
 
-class Holizontalrandom implements Effect {
+class Holizontalrandom  {
   char triggerButton_ = 'a';
   
   
@@ -25,7 +29,7 @@ class Holizontalrandom implements Effect {
     g.updatePixels();
   }
 }
-
+/*
 class Varticalrandom implements Effect {
   char triggerButton = 's';
 
@@ -66,3 +70,5 @@ class Varticalnoise implements Effect {
     g.updatePixels();
   }
 }
+
+*/

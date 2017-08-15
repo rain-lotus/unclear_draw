@@ -17,9 +17,8 @@
 
 ArrayList Layers;
 int chosen = 0;//選択されているレイヤー
-boolean flag = false;
-Effect [] effects = new Effect[4];
 
+boolean flag = false;
 Holizontalrandom holi = new Holizontalrandom();
 
 void setup() {
@@ -28,12 +27,17 @@ void setup() {
 
   Layers = new ArrayList();
   for (int i = 0; i < 5; i++) {
-    Layers.add(new Layer(i));
+    Layers.add(new Layer());
   }
 }
 
 void draw() {
-  background(255);
+  background(200);
+
+  fill(255);
+  noStroke();
+  //最終的にレイヤーの位置と合わせる
+  rect(width/4, height/4, width/2, height/2);
 
   for (int i = 0; i < Layers.size(); i++) {
     Layer l = (Layer)Layers.get(i);
@@ -49,18 +53,11 @@ void draw() {
   }
 }
 
-
-
-
-void makegoup() {
-  Layers.add(new Layer(Layers.size()));
-}
-
 void reset() {
   int size = Layers.size();
   Layers = new ArrayList();
   for (int i = 0; i < size; i++) {
-    Layers.add(new Layer(i));
+    Layers.add(new Layer());
   }
 }
 
